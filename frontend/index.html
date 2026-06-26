@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trendhona – Discover India's Top Content Creators | Finance, Tech, Fashion, Food, Gaming, Fitness</title>
+<meta name="description" content="Trendhona ranks India's top YouTube and Instagram content creators across Marketing, Tech, Finance, HR, Operations and Product Management. Find the right creator for any domain in one place.">
+<meta name="keywords" content="Indian content creators, Indian YouTube influencers, Indian Instagram influencers, marketing creators India, tech YouTubers India, finance influencers India, HR creators India, product management India, operations India, Ankur Warikoo, Technical Guruji, Rachana Ranade, Raj Shamani, Sharan Hegde, Nikhil Kamath, Ishan Sharma, Deepak Kanakaraju, Sorav Jain, Abhijit Bhaduri">
+<meta property="og:title" content="Trendhona – India's Creator Intelligence Platform">
+<meta property="og:description" content="Discover and rank India's top YouTube and Instagram content creators across every professional domain on Trendhona.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://trendhona.in/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="css/styles.css">
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Trendhona","description":"Trendhona — India's creator intelligence platform. Discover and rank India's top YouTube and Instagram content creators across Marketing, Tech, Finance, HR, Operations and Product Management.","url":"https://trendhona.in","potentialAction":{"@type":"SearchAction","target":"https://trendhona.in/search?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="logo" href="#/" aria-label="Trendhona Home" style="display:flex;align-items:center"><img src="data:image/png;base64,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" alt="Trendhona" height="32" style="height:32px;width:auto;display:block"></a>
+    <div class="nav-links">
+      <a href="#/">Home</a>
+      <a href="#/directory">Browse Creators</a>
+      <a href="#/#how">How it works</a>
+      <a href="#/auth?role=creator" style="color:var(--violet);font-weight:700">For Creators</a>
+    </div>
+    <div id="nav-auth-area" style="display:flex;gap:8px;align-items:center">
+      <!-- Injected by JS: sign-in buttons OR user avatar depending on session -->
+      <button class="nav-sign-in" onclick="location.hash='#/auth?mode=signin'">Sign in</button>
+      <button class="nav-cta" onclick="location.hash='#/auth'">Join Trendhona</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════ PAGE 1 : LANDING / ABOUT ═══════════════ -->
+<div id="page-home" class="page">
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-blob blob1" aria-hidden="true"></div>
+  <div class="hero-blob blob2" aria-hidden="true"></div>
+  <div class="hero-blob blob3" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot" aria-hidden="true"></span> India's Creator Intelligence Platform</div>
+    <h1 id="hero-heading">Find the creators<br><span class="grad">shaping your industry.</span></h1>
+    <p>Trendhona is where brands and audiences discover India's top creators — ranked across Finance, Tech, Fashion, Food, Gaming and Fitness on YouTube and Instagram.</p>
+    <div class="hero-search" role="search">
+      <svg class="hero-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input type="search" id="homeSearch" placeholder="Looking for content creators? Search by the domains you want to grow in…" aria-label="Search creators by domain"
+             onkeydown="if(event.key==='Enter'){goSearch(this.value)}">
+    </div>
+    <div class="hero-chips" aria-label="Popular domains">
+      <button class="hchip" onclick="goDomain('finance')">Finance</button>
+      <button class="hchip" onclick="goDomain('tech')">Tech</button>
+      <button class="hchip" onclick="goDomain('fashion')">Fashion</button>
+      <button class="hchip" onclick="goDomain('food')">Food</button>
+      <button class="hchip" onclick="goDomain('gaming')">Gaming</button>
+      <button class="hchip" onclick="goDomain('fitness')">Fitness</button>
+    </div>
+    <div class="hero-stats" aria-label="Platform statistics">
+      <div class="hero-stat"><strong>120+</strong><span>Ranked Creators</span></div>
+      <div class="hero-stat"><strong>6</strong><span>Domains</span></div>
+      <div class="hero-stat"><strong>500M+</strong><span>Combined Reach</span></div>
+      <div class="hero-stat"><strong>2</strong><span>Platforms</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="bio" id="how" aria-labelledby="how-heading">
+  <div class="bio-inner">
+    <div class="eyebrow">What we do</div>
+    <h2 class="section-title" id="how-heading">One home for India's creator economy</h2>
+    <p class="section-sub">Finding the right creator used to mean endless scrolling and guesswork. Trendhona organises India's top YouTube and Instagram voices across Finance, Tech, Fashion, Food, Gaming and Fitness — so the right creator is always one search away.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-ic" style="--fc:var(--c-tech)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+        </div>
+        <h3>Search by domain</h3>
+        <p>Pick the field you want to grow in — Marketing, Tech, Finance, HR, Operations or Product — and instantly see the creators who own that space.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic" style="--fc:var(--c-fin)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 8h5v5"/></svg>
+        </div>
+        <h3>Ranked by real impact</h3>
+        <p>Every creator is ranked on reach and engagement — with live subscriber data pulled straight from YouTube, not vanity numbers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic" style="--fc:var(--c-mkt)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"/></svg>
+        </div>
+        <h3>Verified profiles</h3>
+        <p>One tap takes you to a creator's real YouTube and Instagram — confirmed handles, not guesses or dead links.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic" style="--fc:var(--c-ops)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Built for India</h3>
+        <p>Focused entirely on Indian creators and Indian audiences — from metro-first English to Bharat-first regional voices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CREATORS (the pitch) -->
+<section class="creators-pitch" id="creators" aria-labelledby="cre-heading">
+  <div class="pitch-inner">
+    <div class="pitch-left">
+      <div class="eyebrow" style="color:#C4B5FD">For creators</div>
+      <h2 id="cre-heading">Why Trendhona is the<br>best place to be seen</h2>
+      <p>If you create content that teaches, sells, or inspires, Trendhona puts you in front of the people actively searching for a voice like yours — brands hunting for partners, peers studying the field, and audiences looking to learn.</p>
+      <a class="pitch-cta" href="#/auth?role=creator">Join as a creator →</a>
+    </div>
+    <div class="pitch-right">
+      <div class="pitch-point"><span class="pp-num">01</span><div><strong>Get discovered by intent</strong><p>People arrive already looking for your domain — the warmest discovery there is.</p></div></div>
+      <div class="pitch-point"><span class="pp-num">02</span><div><strong>Rank on merit, not ads</strong><p>Placement is earned through reach and engagement. No pay-to-win, no buried profiles.</p></div></div>
+      <div class="pitch-point"><span class="pp-num">03</span><div><strong>Own your niche</strong><p>Be the name that comes up when someone searches "best finance creator in India."</p></div></div>
+      <div class="pitch-point"><span class="pp-num">04</span><div><strong>Grow across platforms</strong><p>Your YouTube and Instagram, side by side, so followers find every place you post.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-inner">
+    <h2>Ready to find your next favourite creator?</h2>
+    <p>Browse 120+ ranked creators across six domains — or search for exactly the expertise you need.</p>
+    <button class="final-btn" onclick="location.hash='#/auth'">Join Trendhona free →</button>
+  </div>
+</section>
+</div><!-- /page-home -->
+
+
+<!-- ═══════════════ PAGE 2 : DIRECTORY ═══════════════ -->
+<div id="page-directory" class="page" hidden>
+<section class="dir-head" aria-labelledby="dir-heading">
+  <div class="dir-head-inner">
+    <h1 id="dir-heading">The Creator Directory</h1>
+    <p>Search India's top creators, or pick a domain you want to grow in.</p>
+    <div class="hero-search dir-search" role="search">
+      <svg class="hero-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input type="search" id="globalSearch" placeholder="Looking for content creators? Search by the domains you want to grow in…" aria-label="Search creators" oninput="handleSearch(this.value)">
+    </div>
+  </div>
+</section>
+
+<section class="domains-section" id="domains" aria-labelledby="domains-heading">
+  <div class="eyebrow">Pick a world</div>
+  <h2 class="section-title" id="domains-heading">Explore creators by domain</h2>
+  <p class="section-sub">Tap an icon to dive into that world — or browse the entire directory at once.</p>
+
+  <div class="domain-rail" id="domain-rail" role="tablist" aria-label="Creator domains"></div>
+
+  <div class="featured-banner" id="domain-banner" aria-label="Selected domain">
+    <div>
+      <h3 id="banner-title">All Creators</h3>
+      <p id="banner-desc">India's complete directory of top content creators across every domain.</p>
+    </div>
+    <span class="count-pill" id="count-pill"></span>
+  </div>
+
+  <div class="creators-grid" id="grid-main" aria-label="Creators grid"></div>
+  <div class="no-results" id="no-results">No creators found matching your search.</div>
+</section>
+
+<section class="seo-section" id="seo-content" aria-labelledby="seo-heading">
+  <div class="seo-inner">
+    <div class="seo-block">
+      <h3><span class="sdot" style="background:var(--c-fin)"></span>Finance & Investing Creators</h3>
+      <p>India's top finance voices — Sharan Hegde, Ankur Warikoo, Neha Nagar, Sarthak Ahuja, Groww and more. Personal finance, stock market, tax planning and wealth building.</p>
+      <ul><li>Personal Finance India</li><li>Stock Market Creators</li><li>Tax Planning</li><li>Mutual Funds</li><li>Financial Literacy</li></ul>
+    </div>
+    <div class="seo-block">
+      <h3><span class="sdot" style="background:var(--c-tech)"></span>Tech & Gadget Creators</h3>
+      <p>India's most trusted tech creators — Technical Guruji (Gaurav Chaudhary), Tech Burner (Shlok Srivastava), Technology Gyan and more for smartphone reviews and AI tools.</p>
+      <ul><li>Smartphone Reviews India</li><li>Hindi Tech YouTube</li><li>AI Tools India</li><li>Gadget Comparisons</li><li>Budget Tech</li></ul>
+    </div>
+    <div class="seo-block">
+      <h3><span class="sdot" style="background:var(--c-mkt)"></span>Fashion & Lifestyle Creators</h3>
+      <p>India's style icons — Komal Pandey, Masoom Minawala, Karron S Dhinggra, Sakshi Sindwani and more covering fashion, grooming, beauty and lifestyle.</p>
+      <ul><li>Indian Fashion Influencers</li><li>Men's Style India</li><li>Plus-Size Fashion</li><li>Luxury Fashion India</li><li>Body Positivity</li></ul>
+    </div>
+    <div class="seo-block">
+      <h3><span class="sdot" style="background:var(--c-ops)"></span>Food, Gaming & Fitness</h3>
+      <p>From Michelin-starred chefs like Vikas Khanna and Ranveer Brar to gaming legends like Techno Gamerz and fitness coaches like Namrata Purohit — all in one directory.</p>
+      <ul><li>Indian Food Creators</li><li>Gaming YouTubers India</li><li>Fitness India Instagram</li><li>MasterChef India</li><li>Esports India</li></ul>
+    </div>
+  </div>
+</section>
+</div><!-- /page-directory -->
+
+<!-- ═══════════════ PAGE 3 : AUTH (Sign In / Sign Up) ═══════════════ -->
+<div id="page-auth" class="page" hidden>
+<div class="auth-page">
+
+  <!-- LEFT PANEL — value proposition + role selector -->
+  <div class="auth-left" id="auth-left-panel">
+    <div class="auth-left-logo"><img src="data:image/png;base64,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" alt="Trendhona" height="36" style="height:36px;width:auto;filter:brightness(0) invert(1);"></div>
+    <div class="auth-blob ab1" aria-hidden="true"></div>
+    <div class="auth-blob ab2" aria-hidden="true"></div>
+    <div class="auth-left-inner" id="auth-panel-content">
+      <!-- Content injected by JS based on selected role -->
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — forms -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+
+      <!-- Sign In / Sign Up tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" id="tab-signup" role="tab" aria-selected="true" onclick="authMode('signup')">Create account</button>
+        <button class="auth-tab" id="tab-signin" role="tab" aria-selected="false" onclick="authMode('signin')">Sign in</button>
+      </div>
+
+      <!-- SIGN UP FORMS -->
+      <div id="form-signup">
+        <!-- Step 1: Role picker (before form) -->
+        <div id="signup-role-pick">
+          <div class="auth-form-title">Join Trendhona</div>
+          <div class="auth-form-sub">Choose what describes you best to get the right experience.</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:1.5rem">
+            <div class="role-card" id="pick-creator" onclick="pickRole('creator')" style="border:1.5px solid var(--line-strong);background:var(--surface)">
+              <div class="role-icon" style="background:#EDE9FE">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14"/><rect x="2" y="6" width="13" height="12" rx="3"/></svg>
+              </div>
+              <div class="role-card-text">
+                <strong style="color:var(--ink)">I'm a Content Creator</strong>
+                <span style="color:var(--ink-ghost)">Get discovered by brands, track your growth, manage collabs</span>
+              </div>
+            </div>
+            <div class="role-card" id="pick-brand" onclick="pickRole('brand')" style="border:1.5px solid var(--line-strong);background:var(--surface)">
+              <div class="role-icon" style="background:#FEF3C7">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+              </div>
+              <div class="role-card-text">
+                <strong style="color:var(--ink)">I represent a Brand</strong>
+                <span style="color:var(--ink-ghost)">Discover the right creators, run campaigns, grow your reach</span>
+              </div>
+            </div>
+          </div>
+          <button class="f-submit" onclick="proceedWithRole()">Continue with Google →</button>
+          <div class="f-switch">Already have an account? <a onclick="authMode('signin')">Sign in</a></div>
+        </div>
+
+        <!-- CREATOR signup form (hidden until role picked) -->
+        <div id="signup-creator" style="display:none">
+          <div class="auth-form-title">Creator profile</div>
+          <div class="auth-form-sub">Set up your Trendhona creator profile in 2 minutes.</div>
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">First name</label><input class="f-input" type="text" placeholder="Aayush" id="c-fname"></div>
+            <div class="f-group"><label class="f-label">Last name</label><input class="f-input" type="text" placeholder="Sharma" id="c-lname"></div>
+          </div>
+          <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" placeholder="you@email.com" id="c-email"></div>
+          <div class="f-group"><label class="f-label">Password</label><input class="f-input" type="password" placeholder="Min 8 characters" id="c-pass"></div>
+          <div class="f-group"><label class="f-label">Your primary Instagram handle</label><input class="f-input" type="text" placeholder="@yourhandle" id="c-ig"></div>
+          <div class="f-group"><label class="f-label">YouTube channel (optional)</label><input class="f-input" type="text" placeholder="@yourchannel or URL" id="c-yt"></div>
+          <div class="f-group">
+            <label class="f-label">Content domain</label>
+            <div class="f-domain-grid" id="c-domain-chips">
+              <span class="f-domain-chip" onclick="toggleChip(this)">Finance</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Tech</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Fashion</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Food</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Gaming</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Fitness</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Travel</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Education</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Comedy</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Other</span>
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">What are you looking for?</label>
+            <div class="f-goal-grid" id="c-goals">
+              <span class="f-goal" onclick="toggleChip(this)">Brand Collabs</span>
+              <span class="f-goal" onclick="toggleChip(this)">Increase Visibility</span>
+              <span class="f-goal" onclick="toggleChip(this)">Track Performance</span>
+              <span class="f-goal" onclick="toggleChip(this)">Monetise Content</span>
+              <span class="f-goal" onclick="toggleChip(this)">Build Network</span>
+              <span class="f-goal" onclick="toggleChip(this)">Get Ranked</span>
+            </div>
+          </div>
+          <button class="f-submit" onclick="submitCreator()">Create my creator profile →</button>
+          <div class="f-switch"><a onclick="showRolePick()" style="color:var(--ink-ghost)">← Back</a> &nbsp;·&nbsp; Already have an account? <a onclick="authMode('signin')">Sign in</a></div>
+        </div>
+
+        <!-- BRAND signup form -->
+        <div id="signup-brand" style="display:none">
+          <div class="auth-form-title">Brand account</div>
+          <div class="auth-form-sub">Find the right creators to amplify your brand in India.</div>
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">First name</label><input class="f-input" type="text" placeholder="Rahul" id="b-fname"></div>
+            <div class="f-group"><label class="f-label">Last name</label><input class="f-input" type="text" placeholder="Mehta" id="b-lname"></div>
+          </div>
+          <div class="f-group"><label class="f-label">Brand / Company name</label><input class="f-input" type="text" placeholder="Acme Pvt. Ltd." id="b-brand"></div>
+          <div class="f-group"><label class="f-label">Work email</label><input class="f-input" type="email" placeholder="you@company.com" id="b-email"></div>
+          <div class="f-group"><label class="f-label">Password</label><input class="f-input" type="password" placeholder="Min 8 characters" id="b-pass"></div>
+          <div class="f-group">
+            <label class="f-label">Industry</label>
+            <select class="f-input f-select" id="b-industry">
+              <option value="" disabled selected>Select your industry</option>
+              <option>D2C / E-commerce</option>
+              <option>FMCG / Consumer Goods</option>
+              <option>FinTech / BFSI</option>
+              <option>EdTech / E-Learning</option>
+              <option>Health & Wellness</option>
+              <option>Fashion & Apparel</option>
+              <option>Food & Beverage</option>
+              <option>Travel & Hospitality</option>
+              <option>SaaS / Technology</option>
+              <option>Real Estate</option>
+              <option>Automotive</option>
+              <option>Media & Entertainment</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="f-group"><label class="f-label">Website (optional)</label><input class="f-input" type="url" placeholder="https://yourbrand.com" id="b-website"></div>
+          <div class="f-group">
+            <label class="f-label">Domains you want to target</label>
+            <div class="f-domain-grid" id="b-domain-chips">
+              <span class="f-domain-chip" onclick="toggleChip(this)">Finance</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Tech</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Fashion</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Food</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Gaming</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Fitness</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Travel</span>
+              <span class="f-domain-chip" onclick="toggleChip(this)">Education</span>
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">What are you here to do?</label>
+            <div class="f-goal-grid" id="b-goals">
+              <span class="f-goal" onclick="toggleChip(this)">Find Creators</span>
+              <span class="f-goal" onclick="toggleChip(this)">Run Campaigns</span>
+              <span class="f-goal" onclick="toggleChip(this)">Product Promotion</span>
+              <span class="f-goal" onclick="toggleChip(this)">Brand Awareness</span>
+              <span class="f-goal" onclick="toggleChip(this)">App Downloads</span>
+              <span class="f-goal" onclick="toggleChip(this)">Drive Sales</span>
+            </div>
+          </div>
+          <button class="f-submit" onclick="submitBrand()">Create brand account →</button>
+          <div class="f-switch"><a onclick="showRolePick()" style="color:var(--ink-ghost)">← Back</a> &nbsp;·&nbsp; Already have an account? <a onclick="authMode('signin')">Sign in</a></div>
+        </div>
+
+        <!-- SUCCESS state -->
+        <div id="signup-success" style="display:none">
+          <div class="auth-success">
+            <div class="auth-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3 id="success-title">You're in!</h3>
+            <p id="success-msg">Your Trendhona profile is live. We'll review it shortly and you'll hear from us within 24 hours.</p>
+            <button class="auth-success-cta" onclick="location.hash='#/'">Back to Trendhona →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGN IN / SIGN UP with Google -->
+      <div id="form-signin" style="display:none">
+        <div class="auth-form-title">Welcome back</div>
+        <div class="auth-form-sub">Sign in to your Trendhona account with Google.</div>
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
+        </button>
+        <div class="f-divider">new to trendhona?</div>
+        <div class="f-switch">Create your account <a onclick="authMode('signup')">by signing up →</a></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div><!-- /page-auth -->
+
+</main>
+
+<!-- ═══════════════ PAGE 4 : CREATOR DASHBOARD ═══════════════ -->
+<div id="page-dashboard" class="page" hidden>
+<div class="dash-page">
+
+  <!-- Gate: shown to logged-out visitors -->
+  <div id="dash-gate" class="dash-gate" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="1.5" stroke-linecap="round" width="56" height="56"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    <h2>Sign in to see your dashboard</h2>
+    <p>Your Trendhona creator dashboard is private. Sign in with Google to access your stats, score, and profile.</p>
+    <button class="nav-cta" onclick="location.hash='#/auth'">Sign in with Google</button>
+  </div>
+
+  <!-- Dashboard: shown to logged-in users -->
+  <div id="dash-main" style="display:none">
+
+    <!-- Profile header -->
+    <div class="dash-profile-header">
+      <div class="dph-avatar-wrap" id="dph-avatar">—</div>
+      <div class="dph-info">
+        <div class="dph-name" id="dph-name">—</div>
+        <div class="dph-handle" id="dph-handle">—</div>
+        <div class="dph-chips" id="dph-chips"></div>
+      </div>
+      <div class="dph-score">
+        <div class="dph-score-val" id="dph-score">74</div>
+        <div class="dph-score-lbl">Trendhona Score</div>
+        <div class="dph-score-rank" id="dph-rank">#1 in domain</div>
+      </div>
+    </div>
+
+    <!-- Connect Instagram banner (always shown until connected) -->
+    <div class="dash-connect-ig">
+      <p>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4Zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3Zm6.8-11.1a1.5 1.5 0 1 0 1.5 1.5 1.5 1.5 0 0 0-1.5-1.5Z"/></svg>
+        Connect Instagram to pull live follower counts, reach and post insights into this dashboard.
+      </p>
+      <button class="btn-ig-connect" onclick="alert('Instagram OAuth coming soon — backend needed. See the earlier conversation for the setup guide.')">Connect Instagram →</button>
+    </div>
+
+    <!-- Period selector -->
+    <div class="dash-period">
+      <h2>Your analytics</h2>
+      <div class="period-tabs">
+        <button class="ptab" onclick="dashSetPeriod(7,this)">7d</button>
+        <button class="ptab active" id="default-period-tab" onclick="dashSetPeriod(30,this)">30d</button>
+        <button class="ptab" onclick="dashSetPeriod(90,this)">90d</button>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="dash-stats">
+      <div class="dstat">
+        <div class="dstat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Followers</div>
+        <div class="dstat-val" id="ds-followers">—</div>
+        <div class="dstat-delta delta-up" id="dd-followers">—</div>
+      </div>
+      <div class="dstat">
+        <div class="dstat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Reach</div>
+        <div class="dstat-val" id="ds-reach">—</div>
+        <div class="dstat-delta delta-up" id="dd-reach">—</div>
+      </div>
+      <div class="dstat">
+        <div class="dstat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Engagement</div>
+        <div class="dstat-val" id="ds-eng">—</div>
+        <div class="dstat-delta delta-up" id="dd-eng">—</div>
+      </div>
+      <div class="dstat">
+        <div class="dstat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Impressions</div>
+        <div class="dstat-val" id="ds-imp">—</div>
+        <div class="dstat-delta delta-dn" id="dd-imp">—</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="dash-charts">
+      <div class="dcard">
+        <div class="dcard-title">Follower growth <span id="chart-period-label">last 30 days</span></div>
+        <div class="chart-area"><canvas id="dash-growth-chart"></canvas></div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-title">Trendhona Score</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:.4rem 0 .8rem">
+          <div style="position:relative;width:90px;height:90px;flex-shrink:0">
+            <canvas id="dash-score-ring" width="90" height="90"></canvas>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--ink)" id="score-num">74</span>
+              <span style="font-size:10px;color:var(--ink-ghost)">/100</span>
+            </div>
+          </div>
+          <div style="flex:1">
+            <div class="score-row-d">
+              <span class="sr-label">Reach</span>
+              <div class="sr-track"><div class="sr-fill" id="sr-reach" style="width:82%;background:var(--violet)"></div></div>
+              <span class="sr-val">82</span>
+            </div>
+            <div class="score-row-d">
+              <span class="sr-label">Activity</span>
+              <div class="sr-track"><div class="sr-fill" id="sr-activity" style="width:66%;background:#00C48C"></div></div>
+              <span class="sr-val">66</span>
+            </div>
+            <p style="font-size:11.5px;color:var(--ink-ghost);margin-top:.5rem" id="score-tip">Post more consistently to lift your activity score.</p>
+          </div>
+        </div>
+        <div class="dcard-title" style="margin-bottom:.6rem;margin-top:.2rem">Reach vs Impressions <span id="ri-period-label">30d</span></div>
+        <div class="chart-area" style="height:110px"><canvas id="dash-reach-chart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Top posts -->
+    <div class="dcard-title" style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:.8rem">Top posts <span style="font-size:11px;color:var(--ink-ghost);font-weight:600" id="posts-period-label">this month</span></div>
+    <div class="dash-posts-grid" id="dash-posts-grid"></div>
+
+    <!-- Audience + cities -->
+    <div class="dash-bottom">
+      <div class="dcard">
+        <div class="dcard-title">Audience — age range</div>
+        <div id="aud-age-bars"></div>
+        <div class="dcard-title" style="margin-top:.8rem;margin-bottom:.6rem">Gender split</div>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div style="flex:1;background:var(--canvas);border-radius:20px;height:10px;overflow:hidden">
+            <div style="height:100%;background:var(--violet);border-radius:20px;width:58%"></div>
+          </div>
+          <span style="font-size:12px;color:var(--ink-soft);font-weight:600;white-space:nowrap">58% Female · 42% Male</span>
+        </div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-title">Top cities</div>
+        <div id="dash-cities"></div>
+      </div>
+    </div>
+
+  </div><!-- /dash-main -->
+</div><!-- /dash-page -->
+</div><!-- /page-dashboard -->
+
+ — shown after Google OAuth for new users ═══ -->
+<div class="onboard-overlay" id="onboard-overlay" role="dialog" aria-modal="true" aria-labelledby="onboard-title">
+  <div class="onboard-box">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem">
+      <img src="data:image/png;base64,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" alt="Trendhona" height="30" style="height:30px;width:auto;">
+    </div>
+    <h2 id="onboard-title">One last thing</h2>
+    <p>Tell us who you are so we can set up the right experience for you.</p>
+
+    <!-- Step 1: role pick -->
+    <div id="ob-step1">
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:1.4rem">
+        <div class="role-card" id="ob-pick-creator" onclick="obPickRole('creator')" style="border:1.5px solid var(--line-strong);background:var(--surface)">
+          <div class="role-icon" style="background:#EDE9FE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14"/><rect x="2" y="6" width="13" height="12" rx="3"/></svg>
+          </div>
+          <div class="role-card-text">
+            <strong style="color:var(--ink)">I'm a Content Creator</strong>
+            <span style="color:var(--ink-ghost)">Get discovered by brands, track growth, manage collabs</span>
+          </div>
+        </div>
+        <div class="role-card" id="ob-pick-brand" onclick="obPickRole('brand')" style="border:1.5px solid var(--line-strong);background:var(--surface)">
+          <div class="role-icon" style="background:#FEF3C7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          </div>
+          <div class="role-card-text">
+            <strong style="color:var(--ink)">I represent a Brand</strong>
+            <span style="color:var(--ink-ghost)">Discover creators, run campaigns, grow your reach</span>
+          </div>
+        </div>
+      </div>
+      <button class="f-submit" onclick="obNext()">Continue →</button>
+    </div>
+
+    <!-- Step 2a: creator details -->
+    <div id="ob-step2-creator" style="display:none">
+      <div class="f-group"><label class="f-label">Your primary Instagram handle</label><input class="f-input" type="text" placeholder="@yourhandle" id="ob-ig"></div>
+      <div class="f-group"><label class="f-label">YouTube channel (optional)</label><input class="f-input" type="text" placeholder="@yourchannel" id="ob-yt"></div>
+      <div class="f-group">
+        <label class="f-label">Content domain</label>
+        <div class="f-domain-grid" id="ob-c-domains">
+          <span class="f-domain-chip" onclick="toggleChip(this)">Finance</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Tech</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Fashion</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Food</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Gaming</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Fitness</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Travel</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Other</span>
+        </div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">What are you looking for?</label>
+        <div class="f-goal-grid" id="ob-c-goals">
+          <span class="f-goal" onclick="toggleChip(this)">Brand Collabs</span>
+          <span class="f-goal" onclick="toggleChip(this)">Increase Visibility</span>
+          <span class="f-goal" onclick="toggleChip(this)">Track Performance</span>
+          <span class="f-goal" onclick="toggleChip(this)">Monetise Content</span>
+          <span class="f-goal" onclick="toggleChip(this)">Build Network</span>
+          <span class="f-goal" onclick="toggleChip(this)">Get Ranked</span>
+        </div>
+      </div>
+      <button class="f-submit" onclick="obSaveCreator()">Complete my profile →</button>
+      <div class="f-switch" style="margin-top:.8rem"><a onclick="obBack()" style="color:var(--ink-ghost);cursor:pointer">← Back</a></div>
+    </div>
+
+    <!-- Step 2b: brand details -->
+    <div id="ob-step2-brand" style="display:none">
+      <div class="f-group"><label class="f-label">Brand / Company name</label><input class="f-input" type="text" placeholder="Acme Pvt. Ltd." id="ob-brand"></div>
+      <div class="f-group">
+        <label class="f-label">Industry</label>
+        <select class="f-input f-select" id="ob-industry">
+          <option value="" disabled selected>Select your industry</option>
+          <option>D2C / E-commerce</option><option>FMCG / Consumer Goods</option>
+          <option>FinTech / BFSI</option><option>EdTech / E-Learning</option>
+          <option>Health &amp; Wellness</option><option>Fashion &amp; Apparel</option>
+          <option>Food &amp; Beverage</option><option>Travel &amp; Hospitality</option>
+          <option>SaaS / Technology</option><option>Real Estate</option>
+          <option>Automotive</option><option>Media &amp; Entertainment</option><option>Other</option>
+        </select>
+      </div>
+      <div class="f-group"><label class="f-label">Website (optional)</label><input class="f-input" type="url" placeholder="https://yourbrand.com" id="ob-website"></div>
+      <div class="f-group">
+        <label class="f-label">Domains you want to target</label>
+        <div class="f-domain-grid" id="ob-b-domains">
+          <span class="f-domain-chip" onclick="toggleChip(this)">Finance</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Tech</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Fashion</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Food</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Gaming</span>
+          <span class="f-domain-chip" onclick="toggleChip(this)">Fitness</span>
+        </div>
+      </div>
+      <button class="f-submit" onclick="obSaveBrand()">Complete account setup →</button>
+      <div class="f-switch" style="margin-top:.8rem"><a onclick="obBack()" style="color:var(--ink-ghost);cursor:pointer">← Back</a></div>
+    </div>
+
+    <!-- Step 3: done -->
+    <div id="ob-step3" style="display:none">
+      <div class="auth-success">
+        <div class="auth-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 id="ob-success-title">You're in!</h3>
+        <p id="ob-success-msg">Your Trendhona profile is live. Welcome to India's creator intelligence platform.</p>
+        <button class="auth-success-cta" onclick="closeOnboard()">Go to Trendhona →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="about">
+  <div class="footer-inner">
+    <div class="footer-wordmark"><img src="data:image/png;base64,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" alt="Trendhona" height="32" style="height:32px;width:auto;filter:brightness(0) invert(1);"></div>
+    <p class="footer-copy">India's creator intelligence platform — ranked by domain, reach &amp; engagement.</p>
+    <div class="footer-links">
+      <a href="#/#how">About</a><a href="#/directory">Browse</a><a href="#/#creators">For Creators</a><a href="#/directory">Directory</a>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
