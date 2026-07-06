@@ -30,6 +30,7 @@
       <a href="#/">Home</a>
       <a href="#/directory">Browse Creators</a>
       <a href="#/#how">How it works</a>
+      <a href="#/pricing">Pricing</a>
       <a href="#/auth?role=creator" style="color:var(--violet);font-weight:700">For Creators</a>
     </div>
     <div id="nav-auth-area" style="display:flex;gap:8px;align-items:center">
@@ -424,6 +425,15 @@
       <button class="btn-ig-connect" onclick="alert('Instagram OAuth coming soon — backend needed. See the earlier conversation for the setup guide.')">Connect Instagram →</button>
     </div>
 
+    <!-- Go Pro banner -->
+    <div class="dash-connect-ig" style="background:linear-gradient(110deg,#4C1D95,#7C3AED)">
+      <p>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.9L22 10l-5.5 5 1.5 7-6-3.6L6 22l1.5-7L2 10l7.4-1.1z"/></svg>
+        Go Pro to get priority placement, full analytics and direct brand collab requests.
+      </p>
+      <button class="btn-ig-connect" onclick="location.hash='#/pricing'">Upgrade to Pro →</button>
+    </div>
+
     <!-- Period selector -->
     <div class="dash-period">
       <h2>Your analytics</h2>
@@ -519,6 +529,72 @@
   </div><!-- /dash-main -->
 </div><!-- /dash-page -->
 </div><!-- /page-dashboard -->
+
+<!-- ═══════════════ PAGE 5 : PRICING / PAYWALL ═══════════════ -->
+<div id="page-pricing" class="page" hidden>
+<section class="dir-head" aria-labelledby="pricing-heading">
+  <div class="dir-head-inner">
+    <div class="hero-badge" style="margin-bottom:1.2rem"><span class="dot" aria-hidden="true"></span> For Content Creators</div>
+    <h1 id="pricing-heading">Go Pro on Trendhona</h1>
+    <p>Unlock priority placement, full analytics and direct brand collab requests. Cancel anytime.</p>
+  </div>
+</section>
+
+<section class="pricing-section" aria-label="Pro membership plans">
+  <div class="plan-grid">
+
+    <!-- Quarterly -->
+    <div class="plan-card">
+      <div class="plan-name">Quarterly</div>
+      <div class="plan-cycle">Billed every 3 months</div>
+      <div class="plan-price"><span class="amt">₹149</span><span class="per">/ month</span></div>
+      <div class="plan-billed">₹447 billed every 3 months</div>
+      <span class="plan-save">Save 50%</span>
+      <ul class="plan-features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority placement in domain rankings</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full analytics dashboard</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Verified Pro badge on profile</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct brand collab requests</li>
+      </ul>
+      <button class="plan-cta" onclick="selectPlan('quarterly')">Choose Quarterly →</button>
+    </div>
+
+    <!-- Annual (featured) -->
+    <div class="plan-card featured">
+      <span class="plan-badge">Best Value</span>
+      <div class="plan-name">Annual</div>
+      <div class="plan-cycle">Billed once a year</div>
+      <div class="plan-price"><span class="amt">₹99</span><span class="per">/ month</span></div>
+      <div class="plan-billed">₹1,188 billed annually</div>
+      <span class="plan-save">Save 67%</span>
+      <ul class="plan-features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Quarterly, plus:</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Top-of-domain featured placement</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Advanced audience insights</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+      </ul>
+      <button class="plan-cta" onclick="selectPlan('annual')">Choose Annual →</button>
+    </div>
+
+    <!-- Monthly -->
+    <div class="plan-card">
+      <div class="plan-name">Monthly</div>
+      <div class="plan-cycle">Billed every month</div>
+      <div class="plan-price"><span class="amt">₹299</span><span class="per">/ month</span></div>
+      <div class="plan-billed">₹299 billed monthly</div>
+      <ul class="plan-features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority placement in domain rankings</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full analytics dashboard</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Verified Pro badge on profile</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct brand collab requests</li>
+      </ul>
+      <button class="plan-cta" onclick="selectPlan('monthly')">Choose Monthly →</button>
+    </div>
+
+  </div>
+  <p class="pricing-note">Prices are in INR and exclusive of applicable taxes. You can upgrade, downgrade or cancel your plan at any time.</p>
+</section>
+</div><!-- /page-pricing -->
 
  — shown after Google OAuth for new users ═══ -->
 <div class="onboard-overlay" id="onboard-overlay" role="dialog" aria-modal="true" aria-labelledby="onboard-title">

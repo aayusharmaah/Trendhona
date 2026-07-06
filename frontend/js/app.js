@@ -36,6 +36,10 @@ Object.assign(window, {
   goDomain(d) {
     location.hash = '#/directory?d=' + encodeURIComponent(d);
   },
+  selectPlan(planId) {
+    const labels = { monthly: 'Monthly (₹299/mo)', quarterly: 'Quarterly (₹149/mo)', annual: 'Annual (₹99/mo)' };
+    alert(`Payments coming soon — you picked the ${labels[planId] || planId} plan. We'll email you when checkout is live.`);
+  },
 });
 
 // ── Router ─────────────────────────────────────────────────────────────────────
@@ -44,6 +48,7 @@ function showPage(name) {
   document.getElementById('page-directory').hidden = (name !== 'directory');
   document.getElementById('page-auth').hidden      = (name !== 'auth');
   document.getElementById('page-dashboard').hidden = (name !== 'dashboard');
+  document.getElementById('page-pricing').hidden   = (name !== 'pricing');
   window.scrollTo(0, 0);
   if (name === 'dashboard') renderDashboard();
 }
@@ -83,6 +88,8 @@ function router() {
     }
   } else if (path.startsWith('/dashboard')) {
     showPage('dashboard');
+  } else if (path.startsWith('/pricing')) {
+    showPage('pricing');
   } else if (path.startsWith('/auth')) {
     showPage('auth');
     const mode = params.get('mode');
