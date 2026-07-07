@@ -42,7 +42,7 @@ function initCursor() {
     requestAnimationFrame(follow);
   })();
 
-  const HOVER = 'a,button,[onclick],label,select,.dtile,.creator-card,.plan-card,.role-card,.nav-user';
+  const HOVER = 'a,button,[onclick],label,select,.dtile,.creator-card,.plan-card,.role-card,.nav-user,.swipe-card,.job-card';
   const TEXT  = 'input,textarea';
   document.addEventListener('mouseover', (e) => {
     if (e.target.closest(TEXT))       ring.classList.add('is-text');

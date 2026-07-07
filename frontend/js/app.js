@@ -17,6 +17,10 @@ import {
 import { renderDashboard, dashSetPeriod } from './dashboard.js';
 import { DOMAIN_META } from './data.js';
 import { initFX } from './fx.js';
+import {
+  initJobs, renderJobs, jobsFilter, openPostJob, closePostJob, submitJob,
+  applyToJob, openSwipe, closeSwipe, swipeDecide, openApplicantDetail, closeApplicantDetail,
+} from './jobs.js';
 
 // ── Expose functions for HTML onclick= handlers ───────────────────────────────
 Object.assign(window, {
@@ -29,6 +33,9 @@ Object.assign(window, {
   switchTab, handleSearch,
   // Dashboard
   dashSetPeriod,
+  // Jobs
+  jobsFilter, openPostJob, closePostJob, submitJob, applyToJob,
+  openSwipe, closeSwipe, swipeDecide, openApplicantDetail, closeApplicantDetail,
   // Landing helpers
   goSearch(value) {
     const q = (value || '').trim();
@@ -50,8 +57,10 @@ function showPage(name) {
   document.getElementById('page-auth').hidden      = (name !== 'auth');
   document.getElementById('page-dashboard').hidden = (name !== 'dashboard');
   document.getElementById('page-pricing').hidden   = (name !== 'pricing');
+  document.getElementById('page-jobs').hidden      = (name !== 'jobs');
   window.scrollTo(0, 0);
   if (name === 'dashboard') renderDashboard();
+  if (name === 'jobs') renderJobs();
 }
 
 function parseHash() {
@@ -91,6 +100,8 @@ function router() {
     showPage('dashboard');
   } else if (path.startsWith('/pricing')) {
     showPage('pricing');
+  } else if (path.startsWith('/jobs')) {
+    showPage('jobs');
   } else if (path.startsWith('/auth')) {
     showPage('auth');
     const mode = params.get('mode');
@@ -136,6 +147,9 @@ renderLeftPanel('default');
 
 // ── Init visual FX (custom cursor + scroll reveal) ─────────────────────────────
 initFX();
+
+// ── Init jobs board (loads/seeds localStorage) ─────────────────────────────────
+initJobs();
 
 // ── Hash-based routing ─────────────────────────────────────────────────────────
 window.addEventListener('hashchange', router);

@@ -29,6 +29,7 @@
     <div class="nav-links">
       <a href="#/">Home</a>
       <a href="#/directory">Browse Creators</a>
+      <a href="#/jobs">Jobs</a>
       <a href="#/#how">How it works</a>
       <a href="#/pricing">Pricing</a>
       <a href="#/auth?role=creator" style="color:var(--violet);font-weight:700">For Creators</a>
@@ -607,6 +608,67 @@
   <p class="pricing-note">Prices are in INR and exclusive of applicable taxes. You can upgrade, downgrade or cancel your plan at any time.</p>
 </section>
 </div><!-- /page-pricing -->
+
+<!-- ═══════════════ PAGE 6 : JOBS BOARD ═══════════════ -->
+<div id="page-jobs" class="page" hidden>
+<section class="dir-head" aria-labelledby="jobs-heading">
+  <div class="dir-head-inner">
+    <h1 id="jobs-heading">Creator Jobs</h1>
+    <p>Brands post gigs. Creators apply. Brands swipe through applicants to find the match.</p>
+    <button class="nav-cta" onclick="openPostJob()">+ Post a job</button>
+  </div>
+</section>
+<section class="jobs-section" aria-label="Open jobs">
+  <div class="jobs-filter" id="jobs-filter"></div>
+  <div class="jobs-grid" id="jobs-grid"></div>
+</section>
+</div><!-- /page-jobs -->
+
+<!-- POST-JOB MODAL -->
+<div class="onboard-overlay" id="job-post-overlay" role="dialog" aria-modal="true" aria-labelledby="pj-title-h">
+  <div class="onboard-box">
+    <h2 id="pj-title-h">Post a job</h2>
+    <p>Describe the gig — it goes live on the Jobs board instantly.</p>
+    <div class="f-group"><label class="f-label">Job title</label><input class="f-input" type="text" placeholder="e.g. 3 Reels — Diwali campaign" id="pj-title"></div>
+    <div class="f-group"><label class="f-label">Brand name</label><input class="f-input" type="text" placeholder="Your brand" id="pj-brand"></div>
+    <div class="f-row">
+      <div class="f-group">
+        <label class="f-label">Domain</label>
+        <select class="f-input f-select" id="pj-domain">
+          <option value="" disabled selected>Pick a domain</option>
+          <option value="finance">Finance</option>
+          <option value="tech">Tech</option>
+          <option value="fashion">Fashion</option>
+          <option value="food">Food</option>
+          <option value="gaming">Gaming</option>
+          <option value="fitness">Fitness</option>
+        </select>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Content type</label>
+        <select class="f-input f-select" id="pj-type">
+          <option>Instagram Reels</option>
+          <option>YouTube Integration</option>
+          <option>UGC Content</option>
+          <option>Brand Ambassador</option>
+          <option>Event Coverage</option>
+        </select>
+      </div>
+    </div>
+    <div class="f-row">
+      <div class="f-group"><label class="f-label">Budget</label><input class="f-input" type="text" placeholder="e.g. ₹20,000–₹35,000" id="pj-budget"></div>
+      <div class="f-group"><label class="f-label">Location</label><input class="f-input" type="text" placeholder="Remote" id="pj-location"></div>
+    </div>
+    <div class="f-group"><label class="f-label">Description</label><textarea class="f-input" rows="4" placeholder="What do you need, deliverables, timeline…" id="pj-desc"></textarea></div>
+    <button class="f-submit" onclick="submitJob()">Post job →</button>
+    <div class="f-switch" style="margin-top:.8rem"><a onclick="closePostJob()" style="color:var(--ink-ghost);cursor:pointer">Cancel</a></div>
+  </div>
+</div>
+
+<!-- SWIPE REVIEW OVERLAY -->
+<div class="onboard-overlay swipe-overlay" id="swipe-overlay" role="dialog" aria-modal="true" aria-label="Review applicants">
+  <div class="swipe-box" id="swipe-box"></div>
+</div>
 
 <!-- ═══ ONBOARDING MODAL — shown after Google OAuth for new users ═══ -->
 <div class="onboard-overlay" id="onboard-overlay" role="dialog" aria-modal="true" aria-labelledby="onboard-title">

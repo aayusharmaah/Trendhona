@@ -16,6 +16,7 @@ export function updateNav() {
         <div class="nav-user-menu">
           <a onclick="location.hash='#/'">Home</a>
           <a onclick="location.hash='#/directory'">Browse Creators</a>
+          <a onclick="location.hash='#/jobs'">Jobs</a>
           <a onclick="location.hash='#/dashboard'" style="color:var(--violet)">My Dashboard</a>
           <a class="sign-out" onclick="signOut()">Sign out</a>
         </div>
