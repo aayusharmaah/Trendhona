@@ -16,6 +16,7 @@ import {
 } from './directory.js';
 import { renderDashboard, dashSetPeriod } from './dashboard.js';
 import { DOMAIN_META } from './data.js';
+import { initFX } from './fx.js';
 
 // ── Expose functions for HTML onclick= handlers ───────────────────────────────
 Object.assign(window, {
@@ -132,6 +133,9 @@ hydrateLiveData(() => render(getCreators(state.currentDomain)));
 
 // ── Init auth left panel ───────────────────────────────────────────────────────
 renderLeftPanel('default');
+
+// ── Init visual FX (custom cursor + scroll reveal) ─────────────────────────────
+initFX();
 
 // ── Hash-based routing ─────────────────────────────────────────────────────────
 window.addEventListener('hashchange', router);

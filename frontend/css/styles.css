@@ -391,6 +391,81 @@ footer{background:var(--ink);padding:2.8rem clamp(1rem,4vw,2.5rem)}
 .plan-card.featured .plan-cta:hover{background:var(--violet-mid);box-shadow:var(--shadow-v)}
 .pricing-note{text-align:center;color:var(--ink-ghost);font-size:12.5px;font-weight:500;margin-top:2rem}
 @media(max-width:860px){.plan-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.plan-card.featured{order:-1}}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FUNKY REDESIGN LAYER — creator-studio energy: chunky ink borders, hard
+   offset shadows, tilted stickers, marquee, squiggles. Same violet palette.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Dotted paper background */
+body{background-image:radial-gradient(circle,rgba(124,58,237,.09) 1.2px,transparent 1.2px);background-size:26px 26px}
+
+/* Chunky sticker buttons */
+.nav-cta,.f-submit,.plan-cta,.pitch-cta,.auth-success-cta,.final-btn,.btn-google,.nav-sign-in{border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink)}
+.nav-cta:hover,.f-submit:hover,.plan-cta:hover,.pitch-cta:hover,.auth-success-cta:hover,.final-btn:hover,.btn-google:hover,.nav-sign-in:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.nav-cta:active,.f-submit:active,.plan-cta:active,.pitch-cta:active,.auth-success-cta:active,.final-btn:active,.btn-google:active,.nav-sign-in:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+
+/* Sticker cards — bold outline, hard shadow, playful tilt on hover */
+.feature-card,.creator-card,.dtile,.dstat,.dcard,.plan-card,.post-card,.seo-block{border:2px solid var(--ink);box-shadow:6px 6px 0 rgba(13,11,30,.12)}
+.feature-card:hover,.creator-card:hover,.plan-card:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:9px 9px 0 var(--violet);border-color:var(--ink)}
+.dtile:hover{transform:translateY(-4px) rotate(2deg)}
+.plan-card.featured{border-color:var(--ink);box-shadow:8px 8px 0 var(--violet);transform:rotate(1.2deg)}
+.plan-card.featured:hover{transform:translateY(-6px) rotate(0deg)}
+.plan-badge{transform:translateX(-50%) rotate(-3deg);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.plan-save{transform:rotate(-2deg);border:1.5px solid #00875A}
+
+/* Squiggle underline for section titles */
+.section-title::after{content:"";display:block;width:130px;height:12px;margin:12px auto 0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 12'%3E%3Cpath d='M3 8 Q 13 2 23 8 T 43 8 T 63 8 T 83 8 T 103 8 T 126 8' fill='none' stroke='%237C3AED' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* Eyebrows get sparkles */
+.eyebrow::before{content:"✦ "}
+.eyebrow::after{content:" ✦"}
+
+/* Hero chips: scattered sticker tilt */
+.hchip{border-width:2px}
+.hchip:nth-child(odd){rotate:-2.5deg}
+.hchip:nth-child(even){rotate:2.5deg}
+.hchip:hover{rotate:0deg;scale:1.1;background:var(--violet);border-color:var(--violet);color:#fff}
+
+/* Floating emoji stickers in the hero */
+.hero-sticker{position:absolute;z-index:1;font-size:28px;line-height:1;background:rgba(255,255,255,.96);border:2px solid var(--ink);border-radius:16px;padding:11px 13px;box-shadow:4px 4px 0 rgba(124,58,237,.85);animation:floaty 5s ease-in-out infinite;display:none;user-select:none}
+@media(min-width:920px){.hero-sticker{display:block}}
+.hs1{top:20%;left:8%;rotate:-9deg}
+.hs2{top:58%;left:13%;rotate:7deg;animation-delay:1.3s}
+.hs3{top:22%;right:9%;rotate:9deg;animation-delay:.6s}
+.hs4{top:60%;right:13%;rotate:-6deg;animation-delay:1.9s}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -14px}}
+
+/* Marquee strip */
+.marquee{overflow:hidden;background:var(--violet);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:13px 0;rotate:-1.2deg;margin:-10px -12px 26px;width:calc(100% + 24px)}
+.marquee-track{display:flex;align-items:center;gap:2.2rem;white-space:nowrap;width:max-content;animation:marquee 26s linear infinite}
+.marquee-track span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.marquee-track span:nth-child(even){color:#C4B5FD;font-size:12px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* Dashed accents on dark banners */
+.featured-banner{outline:2px dashed rgba(255,255,255,.35);outline-offset:-9px}
+.dash-profile-header{outline:2px dashed rgba(255,255,255,.22);outline-offset:-9px}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px) rotate(.6deg)}
+.reveal.in-view{opacity:1;transform:none;transition:opacity .6s ease,transform .65s cubic-bezier(.34,1.56,.64,1)}
+
+/* Custom cursor — dot + trailing ring */
+.fx-cursor,.fx-cursor *{cursor:none!important}
+.cursor-dot{position:fixed;top:-4px;left:-4px;width:8px;height:8px;border-radius:50%;background:var(--violet);border:1px solid rgba(255,255,255,.8);z-index:10000;pointer-events:none;opacity:0}
+.cursor-ring{position:fixed;top:-19px;left:-19px;width:38px;height:38px;border-radius:50%;border:2px solid var(--violet);background:rgba(124,58,237,0);z-index:9999;pointer-events:none;opacity:0;scale:1;transition:scale .25s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,opacity .3s}
+.cursor-dot.is-active,.cursor-ring.is-active{opacity:1}
+.cursor-ring.is-hover{scale:1.7;background:rgba(124,58,237,.14);border-color:var(--violet-mid)}
+.cursor-ring.is-text{scale:.45;background:rgba(124,58,237,.35)}
+.cursor-ring.is-down{scale:.75;background:rgba(124,58,237,.28)}
+
+/* Respect reduced-motion preferences */
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none}
+  .hero-sticker{animation:none}
+  .reveal{opacity:1;transform:none}
+}
 @media(max-width:900px){
   .dash-stats{grid-template-columns:repeat(2,1fr)}
   .dash-charts{grid-template-columns:1fr}
