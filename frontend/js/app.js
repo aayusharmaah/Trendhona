@@ -21,6 +21,11 @@ import {
   initJobs, renderJobs, jobsFilter, openPostJob, closePostJob, submitJob,
   applyToJob, openSwipe, closeSwipe, swipeDecide, openApplicantDetail, closeApplicantDetail,
 } from './jobs.js';
+import {
+  initAutomate, renderAutomate, updateRef, addRefRow, removeRefRow, setAutoLen,
+  generateScriptsUI, copyScript, regenScript, deleteScript, assignScript, cancelAssign,
+  calPrev, calNext, calClickDay, openScriptModal, closeScriptModal, unassignScript,
+} from './automate.js';
 
 // ── Expose functions for HTML onclick= handlers ───────────────────────────────
 Object.assign(window, {
@@ -36,6 +41,10 @@ Object.assign(window, {
   // Jobs
   jobsFilter, openPostJob, closePostJob, submitJob, applyToJob,
   openSwipe, closeSwipe, swipeDecide, openApplicantDetail, closeApplicantDetail,
+  // Content automation
+  updateRef, addRefRow, removeRefRow, setAutoLen, generateScriptsUI,
+  copyScript, regenScript, deleteScript, assignScript, cancelAssign,
+  calPrev, calNext, calClickDay, openScriptModal, closeScriptModal, unassignScript,
   // Landing helpers
   goSearch(value) {
     const q = (value || '').trim();
@@ -58,9 +67,11 @@ function showPage(name) {
   document.getElementById('page-dashboard').hidden = (name !== 'dashboard');
   document.getElementById('page-pricing').hidden   = (name !== 'pricing');
   document.getElementById('page-jobs').hidden      = (name !== 'jobs');
+  document.getElementById('page-automate').hidden  = (name !== 'automate');
   window.scrollTo(0, 0);
   if (name === 'dashboard') renderDashboard();
   if (name === 'jobs') renderJobs();
+  if (name === 'automate') renderAutomate();
 }
 
 function parseHash() {
@@ -102,6 +113,8 @@ function router() {
     showPage('pricing');
   } else if (path.startsWith('/jobs')) {
     showPage('jobs');
+  } else if (path.startsWith('/automate')) {
+    showPage('automate');
   } else if (path.startsWith('/auth')) {
     showPage('auth');
     const mode = params.get('mode');
@@ -126,6 +139,7 @@ sb.auth.onAuthStateChange(async (event, session) => {
     updateNav();
     const { path } = parseHash();
     if (path.startsWith('/dashboard')) renderDashboard();
+    if (path.startsWith('/automate')) renderAutomate();
     if (!state.userProfile && event === 'SIGNED_IN') showOnboarding();
     if (path.startsWith('/auth')) location.hash = '#/';
   } else {
@@ -133,6 +147,7 @@ sb.auth.onAuthStateChange(async (event, session) => {
     updateNav();
     const { path } = parseHash();
     if (path.startsWith('/dashboard')) renderDashboard();
+    if (path.startsWith('/automate')) renderAutomate();
   }
 });
 
@@ -150,6 +165,9 @@ initFX();
 
 // ── Init jobs board (loads/seeds localStorage) ─────────────────────────────────
 initJobs();
+
+// ── Init content automation studio ─────────────────────────────────────────────
+initAutomate();
 
 // ── Hash-based routing ─────────────────────────────────────────────────────────
 window.addEventListener('hashchange', router);

@@ -449,6 +449,15 @@
       <button class="btn-ig-connect" onclick="location.hash='#/pricing'">Upgrade to Pro →</button>
     </div>
 
+    <!-- Automate Content banner -->
+    <div class="dash-connect-ig" style="background:linear-gradient(110deg,#0D0B1E,#5B21B6)">
+      <p>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Turn reference reels into a month of ready-to-shoot scripts — Hook, Problem, Solution, CTA.
+      </p>
+      <button class="btn-ig-connect" onclick="location.hash='#/automate'">⚡ Automate Content →</button>
+    </div>
+
     <!-- Period selector -->
     <div class="dash-period">
       <h2>Your analytics</h2>
@@ -625,6 +634,85 @@
   <div class="jobs-grid" id="jobs-grid"></div>
 </section>
 </div><!-- /page-jobs -->
+
+<!-- ═══════════════ PAGE 7 : CONTENT AUTOMATION STUDIO ═══════════════ -->
+<div id="page-automate" class="page" hidden>
+<section class="dir-head" aria-labelledby="auto-heading">
+  <div class="dir-head-inner">
+    <h1 id="auto-heading">Content Automation Studio</h1>
+    <p>Turn reference reels into ready-to-shoot scripts — Hook, Problem, Solution, CTA — and plan them on your calendar.</p>
+  </div>
+</section>
+<div class="auto-page">
+
+  <!-- Gate for logged-out visitors -->
+  <div id="auto-gate" class="dash-gate" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="1.5" stroke-linecap="round" width="56" height="56"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    <h2>Sign in to automate your content</h2>
+    <p>The Content Automation Studio is part of your creator dashboard. Sign in with Google to start generating scripts.</p>
+    <button class="nav-cta" onclick="location.hash='#/auth'">Sign in with Google</button>
+  </div>
+
+  <div id="auto-main" style="display:none">
+
+    <!-- STEP 1 : reference reels -->
+    <div class="dcard auto-card">
+      <div class="auto-step">✦ Step 1 · Reference reels</div>
+      <p class="auto-sub">Paste links to reels in your genre, and each reel's script or transcript. The generator mines your references for topics and phrasing.</p>
+      <span class="job-pill" id="ref-count">No reference scripts yet</span>
+      <div id="ref-list" style="margin-top:1rem"></div>
+      <button class="job-btn" onclick="addRefRow()">+ Add another reference</button>
+    </div>
+
+    <!-- STEP 2 : generation controls -->
+    <div class="dcard auto-card">
+      <div class="auto-step">✦ Step 2 · Generate scripts</div>
+      <div class="f-row">
+        <div class="f-group"><label class="f-label">Your topic / niche</label><input class="f-input" type="text" placeholder="e.g. personal finance for beginners" id="auto-topic"></div>
+        <div class="f-group">
+          <label class="f-label">Tone</label>
+          <select class="f-input f-select" id="auto-tone">
+            <option value="educational">Educational</option>
+            <option value="bold">Bold / Contrarian</option>
+            <option value="entertaining">Entertaining</option>
+            <option value="story">Storytelling</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Script length</label>
+        <div class="jobs-filter" id="auto-len" style="justify-content:flex-start;margin-bottom:0"></div>
+      </div>
+      <button class="f-submit" onclick="generateScriptsUI()">⚡ Generate 3 scripts</button>
+    </div>
+
+    <!-- STEP 3 : scripts -->
+    <div class="auto-step" style="margin:2rem 0 1rem">✦ Step 3 · Your scripts</div>
+    <div id="auto-scripts" class="auto-scripts"></div>
+
+    <!-- STEP 4 : calendar -->
+    <div class="auto-step" style="margin:2rem 0 1rem" id="auto-calendar">✦ Step 4 · Content calendar</div>
+    <div class="auto-assign-banner" id="auto-assign-banner" hidden>
+      <span></span>
+      <button class="job-btn" onclick="cancelAssign()">Cancel</button>
+    </div>
+    <div class="dcard">
+      <div class="cal-head">
+        <button class="job-btn" onclick="calPrev()" aria-label="Previous month">‹</button>
+        <span id="cal-title" class="cal-title"></span>
+        <button class="job-btn" onclick="calNext()" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+
+  </div><!-- /auto-main -->
+</div>
+</div><!-- /page-automate -->
+
+<!-- SCRIPT VIEW MODAL (calendar chips) -->
+<div class="onboard-overlay" id="script-modal" role="dialog" aria-modal="true" aria-label="Scheduled script">
+  <div class="onboard-box"></div>
+</div>
 
 <!-- POST-JOB MODAL -->
 <div class="onboard-overlay" id="job-post-overlay" role="dialog" aria-modal="true" aria-labelledby="pj-title-h">
