@@ -23,6 +23,7 @@ import {
 } from './jobs.js';
 import {
   initAutomate, renderAutomate, updateRef, addRefRow, removeRefRow, setAutoLen,
+  toggleForte, updateTopics,
   generateScriptsUI, copyScript, regenScript, deleteScript, assignScript, cancelAssign,
   calPrev, calNext, calClickDay, openScriptModal, closeScriptModal, unassignScript,
 } from './automate.js';
@@ -42,7 +43,7 @@ Object.assign(window, {
   jobsFilter, openPostJob, closePostJob, submitJob, applyToJob,
   openSwipe, closeSwipe, swipeDecide, openApplicantDetail, closeApplicantDetail,
   // Content automation
-  updateRef, addRefRow, removeRefRow, setAutoLen, generateScriptsUI,
+  updateRef, addRefRow, removeRefRow, setAutoLen, toggleForte, updateTopics, generateScriptsUI,
   copyScript, regenScript, deleteScript, assignScript, cancelAssign,
   calPrev, calNext, calClickDay, openScriptModal, closeScriptModal, unassignScript,
   // Landing helpers

@@ -655,20 +655,35 @@
 
   <div id="auto-main" style="display:none">
 
-    <!-- STEP 1 : reference reels -->
+    <!-- STEP 1 : forte & topics -->
     <div class="dcard auto-card">
-      <div class="auto-step">✦ Step 1 · Reference reels</div>
+      <div class="auto-step">✦ Step 1 · Your forte &amp; topics</div>
+      <p class="auto-sub">Tell us what you're great at and what you want to make content on — scripts are generated around this.</p>
+      <div class="f-group">
+        <label class="f-label">What's your forte? (pick any)</label>
+        <div class="jobs-filter" id="auto-fortes" style="justify-content:flex-start;margin-bottom:0"></div>
+      </div>
+      <div class="f-group" style="margin-top:.8rem">
+        <label class="f-label">Topics you want to create content on</label>
+        <textarea class="f-input" rows="2" id="auto-topics" placeholder="e.g. SIP investing for beginners, credit card mistakes, tax saving hacks — separate with commas"
+                  oninput="updateTopics(this.value)"></textarea>
+      </div>
+    </div>
+
+    <!-- STEP 2 : reference reels -->
+    <div class="dcard auto-card">
+      <div class="auto-step">✦ Step 2 · Reference reels</div>
       <p class="auto-sub">Paste links to reels in your genre, and each reel's script or transcript. The generator mines your references for topics and phrasing.</p>
       <span class="job-pill" id="ref-count">No reference scripts yet</span>
       <div id="ref-list" style="margin-top:1rem"></div>
       <button class="job-btn" onclick="addRefRow()">+ Add another reference</button>
     </div>
 
-    <!-- STEP 2 : generation controls -->
+    <!-- STEP 3 : generation controls -->
     <div class="dcard auto-card">
-      <div class="auto-step">✦ Step 2 · Generate scripts</div>
+      <div class="auto-step">✦ Step 3 · Generate scripts</div>
       <div class="f-row">
-        <div class="f-group"><label class="f-label">Your topic / niche</label><input class="f-input" type="text" placeholder="e.g. personal finance for beginners" id="auto-topic"></div>
+        <div class="f-group"><label class="f-label">Focus topic (optional — otherwise your Step 1 topics are used)</label><input class="f-input" type="text" placeholder="e.g. personal finance for beginners" id="auto-topic"></div>
         <div class="f-group">
           <label class="f-label">Tone</label>
           <select class="f-input f-select" id="auto-tone">
@@ -680,18 +695,23 @@
         </div>
       </div>
       <div class="f-group">
-        <label class="f-label">Script length</label>
-        <div class="jobs-filter" id="auto-len" style="justify-content:flex-start;margin-bottom:0"></div>
+        <label class="f-label">Script length — drag to set</label>
+        <div class="len-slider-wrap">
+          <div class="len-value" id="len-value">30s</div>
+          <input type="range" class="len-slider" id="auto-len-slider" min="10" max="180" step="5" value="30"
+                 oninput="setAutoLen(this.value)" aria-label="Script length in seconds">
+          <div class="len-bounds"><span>10s</span><span>3 min</span></div>
+        </div>
       </div>
       <button class="f-submit" onclick="generateScriptsUI()">⚡ Generate 3 scripts</button>
     </div>
 
-    <!-- STEP 3 : scripts -->
-    <div class="auto-step" style="margin:2rem 0 1rem">✦ Step 3 · Your scripts</div>
+    <!-- STEP 4 : scripts -->
+    <div class="auto-step" style="margin:2rem 0 1rem">✦ Step 4 · Your scripts</div>
     <div id="auto-scripts" class="auto-scripts"></div>
 
-    <!-- STEP 4 : calendar -->
-    <div class="auto-step" style="margin:2rem 0 1rem" id="auto-calendar">✦ Step 4 · Content calendar</div>
+    <!-- STEP 5 : calendar -->
+    <div class="auto-step" style="margin:2rem 0 1rem" id="auto-calendar">✦ Step 5 · Content calendar</div>
     <div class="auto-assign-banner" id="auto-assign-banner" hidden>
       <span></span>
       <button class="job-btn" onclick="cancelAssign()">Cancel</button>

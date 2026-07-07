@@ -15,14 +15,24 @@ const LS_KEY = 'th_automate_v1';
 let db = null;
 let assignMode = null;              // script id currently being assigned
 let calOffset = 0;                  // months from current month
-let selLen = 30;                    // selected script length in seconds
+let selLen = 30;                    // selected script length in seconds (10–180)
 
-const LENGTHS = [
-  { s: 10,  label: '10s'  }, { s: 15,  label: '15s'  },
-  { s: 30,  label: '30s'  }, { s: 45,  label: '45s'  },
-  { s: 60,  label: '60s'  }, { s: 90,  label: '90s'  },
-  { s: 120, label: '2min' }, { s: 180, label: '3min' },
+const FORTES = [
+  'Storytelling', 'Educating', 'Comedy / Humour', 'Hot Takes',
+  'Tutorials', 'Reviews', 'Vlogs', 'Interviews',
 ];
+// Forte → suggested script tone
+const FORTE_TONE = {
+  'Storytelling': 'story', 'Comedy / Humour': 'entertaining', 'Vlogs': 'entertaining',
+  'Hot Takes': 'bold', 'Educating': 'educational', 'Tutorials': 'educational',
+  'Reviews': 'educational', 'Interviews': 'story',
+};
+
+function fmtLen(s) {
+  if (s < 60) return s + 's';
+  const m = Math.floor(s / 60), r = s % 60;
+  return r ? `${m}m ${r}s` : `${m} min`;
+}
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -34,6 +44,10 @@ function load() {
   db.refs     = Array.isArray(db.refs) ? db.refs : [{ link: '', script: '' }];
   db.scripts  = Array.isArray(db.scripts) ? db.scripts : [];
   db.schedule = db.schedule && typeof db.schedule === 'object' ? db.schedule : {};
+  db.profile  = db.profile && typeof db.profile === 'object' ? db.profile : {};
+  db.profile.fortes = Array.isArray(db.profile.fortes) ? db.profile.fortes : [];
+  db.profile.topics = typeof db.profile.topics === 'string' ? db.profile.topics : '';
+  if (typeof db.profile.len === 'number') selLen = Math.min(180, Math.max(10, db.profile.len));
 }
 function save() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(db)); } catch (_) {}
@@ -58,10 +72,39 @@ export function renderAutomate() {
   if (topicEl && !topicEl.value) {
     topicEl.value = state.userProfile?.domains?.[0] || '';
   }
+  const topicsEl = document.getElementById('auto-topics');
+  if (topicsEl && !topicsEl.value) topicsEl.value = db.profile.topics;
+  renderFortes();
   renderRefs();
-  renderLenChips();
+  renderLenSlider();
   renderScripts();
   renderCalendar();
+}
+
+// ── Step 1: forte & topics ─────────────────────────────────────────────────────
+function renderFortes() {
+  const wrap = document.getElementById('auto-fortes');
+  if (!wrap) return;
+  wrap.innerHTML = FORTES.map((f) =>
+    `<button class="jchip${db.profile.fortes.includes(f) ? ' active' : ''}" onclick="toggleForte('${f}')">${f}</button>`
+  ).join('');
+}
+
+export function toggleForte(f) {
+  const i = db.profile.fortes.indexOf(f);
+  if (i === -1) db.profile.fortes.push(f); else db.profile.fortes.splice(i, 1);
+  save();
+  renderFortes();
+  // Suggest a matching tone from the most recently picked forte
+  if (i === -1 && FORTE_TONE[f]) {
+    const toneEl = document.getElementById('auto-tone');
+    if (toneEl) toneEl.value = FORTE_TONE[f];
+  }
+}
+
+export function updateTopics(v) {
+  db.profile.topics = v;
+  save();
 }
 
 // ── Step 1: reference reels ────────────────────────────────────────────────────
@@ -99,21 +142,43 @@ const STOP = new Set(('a an the and or but if then this that these those i you y
 
 function mineKeywords() {
   const text = db.refs.map((r) => r.script).join(' ').toLowerCase();
-  const words = text.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter((w) => w.length > 3 && !STOP.has(w));
+  const tokens = text.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean);
+  const good = (w) => w.length > 3 && !STOP.has(w);
   const freq = {};
-  words.forEach((w) => { freq[w] = (freq[w] || 0) + 1; });
-  return Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([w]) => w);
+  tokens.forEach((w) => { if (good(w)) freq[w] = (freq[w] || 0) + 1; });
+
+  // Prefer two-word phrases ("mutual funds") over lone words ("mutual") —
+  // score a pair by its parts' frequencies so repeated concepts float up.
+  const pairs = {};
+  for (let i = 0; i < tokens.length - 1; i++) {
+    const a = tokens[i], b = tokens[i + 1];
+    if (good(a) && good(b)) {
+      const key = a + ' ' + b;
+      pairs[key] = (pairs[key] || 0) + freq[a] + freq[b];
+    }
+  }
+  const bigrams = Object.entries(pairs).sort((x, y) => y[1] - x[1]).slice(0, 4).map(([k]) => k);
+  const used = new Set(bigrams.flatMap((bg) => bg.split(' ')));
+  const singles = Object.entries(freq)
+    .filter(([w]) => !used.has(w))
+    .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([w]) => w);
+  return [...bigrams, ...singles].slice(0, 6);
 }
 
-// ── Step 2: generation controls ────────────────────────────────────────────────
-function renderLenChips() {
-  const wrap = document.getElementById('auto-len');
-  if (!wrap) return;
-  wrap.innerHTML = LENGTHS.map((l) =>
-    `<button class="jchip${l.s === selLen ? ' active' : ''}" onclick="setAutoLen(${l.s})">${l.label}</button>`
-  ).join('');
+// ── Generation controls: drag slider for script length ────────────────────────
+function renderLenSlider() {
+  const slider = document.getElementById('auto-len-slider');
+  const label  = document.getElementById('len-value');
+  if (slider) slider.value = selLen;
+  if (label)  label.textContent = fmtLen(selLen);
 }
-export function setAutoLen(s) { selLen = s; renderLenChips(); }
+export function setAutoLen(s) {
+  selLen = Math.min(180, Math.max(10, +s || 30));
+  db.profile.len = selLen;
+  save();
+  const label = document.getElementById('len-value');
+  if (label) label.textContent = fmtLen(selLen);
+}
 
 // ── The script engine (template-based; see AI-SWAP POINT at top) ───────────────
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -247,16 +312,27 @@ function wordCount(sc) {
 }
 
 export function generateScriptsUI() {
-  const topic = (document.getElementById('auto-topic')?.value || '').trim() || 'content creation';
+  const manual = (document.getElementById('auto-topic')?.value || '').trim();
+  const listed = db.profile.topics.split(/[,\n]/).map((t) => t.trim()).filter(Boolean);
+  // Manual niche wins; otherwise rotate through the topics the creator listed
+  const topics = manual ? [manual] : (listed.length ? listed : ['content creation']);
   const tone  = document.getElementById('auto-tone')?.value || 'educational';
   const keywords = mineKeywords();
+  // If no reference scripts were mined, fall back to words from their listed topics
+  if (!keywords.length) {
+    listed.join(' ').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/)
+      .filter((w) => w.length > 3 && !STOP.has(w)).slice(0, 4)
+      .forEach((w) => keywords.push(w));
+  }
   const refCount = db.refs.filter((r) => r.script.trim()).length;
 
   for (let i = 0; i < 3; i++) {
+    const topic = topics[i % topics.length];
     const body = buildScript({ topic, tone, seconds: selLen, keywords });
     db.scripts.unshift({
       id: 's' + Date.now() + '-' + i,
       topic, tone, seconds: selLen, refCount,
+      fortes: [...db.profile.fortes],
       ...body,
       createdAt: Date.now(),
     });
@@ -266,8 +342,8 @@ export function generateScriptsUI() {
   document.getElementById('auto-scripts')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── Step 3: script cards ───────────────────────────────────────────────────────
-function lenLabel(s) { return (LENGTHS.find((l) => l.s === s) || {}).label || s + 's'; }
+// ── Script cards ───────────────────────────────────────────────────────────────
+const lenLabel = fmtLen;
 
 function scheduledDatesFor(id) {
   return Object.entries(db.schedule)
@@ -290,6 +366,7 @@ function renderScripts() {
     const dateChips = dates.map((d) => `<span class="sc-date">📅 ${d}</span>`).join('');
     return `<article class="script-card">
       <div class="sc-meta">
+        <span class="job-pill" style="background:var(--violet-xlight);color:var(--violet);border-color:var(--violet-light)">${esc(sc.topic)}</span>
         <span class="job-pill">${lenLabel(sc.seconds)} target</span>
         <span class="job-pill">≈ ${est}s spoken · ${words} words</span>
         <span class="job-pill">${esc(sc.tone)}</span>

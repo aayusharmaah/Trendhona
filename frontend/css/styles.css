@@ -562,6 +562,18 @@ body{background-image:radial-gradient(circle,rgba(124,58,237,.09) 1.2px,transpar
 .ref-row-head .f-input{flex:1}
 .ref-del{width:38px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);color:#E1306C;font-weight:700;cursor:pointer;box-shadow:2px 2px 0 var(--ink);font-family:inherit}
 .ref-del:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+/* Draggable script-length slider */
+.len-slider-wrap{background:var(--canvas);border:2px dashed var(--line-strong);border-radius:14px;padding:1rem 1.2rem}
+.len-value{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.6rem;color:var(--violet);letter-spacing:-.02em;text-align:center;margin-bottom:.5rem}
+.len-slider{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:20px;background:linear-gradient(90deg,var(--violet),var(--violet-mid));border:2px solid var(--ink);outline:none;cursor:grab}
+.len-slider:active{cursor:grabbing}
+.len-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--violet);cursor:grab;transition:transform .15s}
+.len-slider::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.len-slider::-webkit-slider-thumb:active{cursor:grabbing;transform:scale(1.05)}
+.len-slider::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--violet);cursor:grab}
+.len-slider::-moz-range-track{height:10px;border-radius:20px;background:linear-gradient(90deg,var(--violet),var(--violet-mid));border:2px solid var(--ink)}
+.len-bounds{display:flex;justify-content:space-between;margin-top:.5rem;font-size:11px;font-weight:700;color:var(--ink-ghost)}
+
 .auto-scripts{display:flex;flex-direction:column;gap:1.2rem}
 .script-card{background:var(--surface);border:2px solid var(--ink);border-radius:var(--radius);padding:1.4rem;box-shadow:6px 6px 0 rgba(13,11,30,.12)}
 .sc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
