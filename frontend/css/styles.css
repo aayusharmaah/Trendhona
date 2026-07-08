@@ -221,7 +221,11 @@ footer{background:var(--ink);padding:2.8rem clamp(1rem,4vw,2.5rem)}
 .nav-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--violet-light);background:var(--violet-light);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:var(--violet);flex-shrink:0}
 .nav-user-name{font-size:14px;font-weight:600;color:var(--ink)}
 .nav-user-menu{position:absolute;top:calc(100% + 10px);right:0;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:6px;min-width:180px;box-shadow:var(--shadow);z-index:200;display:none}
-.nav-user:hover .nav-user-menu{display:block}
+/* Invisible bridge fills the 10px gap so moving the cursor from the avatar
+   down to the menu doesn't drop the :hover and hide the dropdown. */
+.nav-user-menu::before{content:"";position:absolute;top:-12px;left:0;right:0;height:12px}
+.nav-user:hover .nav-user-menu,
+.nav-user:focus-within .nav-user-menu{display:block}
 .nav-user-menu a{display:block;padding:9px 12px;font-size:13px;color:var(--ink-soft);font-weight:600;border-radius:var(--radius-xs);cursor:pointer;transition:background .15s}
 .nav-user-menu a:hover{background:var(--canvas)}
 .nav-user-menu .sign-out{color:#C0130E}
