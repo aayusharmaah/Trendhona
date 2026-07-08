@@ -458,11 +458,17 @@ body{background-image:radial-gradient(circle,rgba(124,58,237,.09) 1.2px,transpar
 /* Custom cursor — dot + trailing ring */
 .fx-cursor,.fx-cursor *{cursor:none!important}
 .cursor-dot{position:fixed;top:-4px;left:-4px;width:8px;height:8px;border-radius:50%;background:var(--violet);border:1px solid rgba(255,255,255,.8);z-index:10000;pointer-events:none;opacity:0}
-.cursor-ring{position:fixed;top:-19px;left:-19px;width:38px;height:38px;border-radius:50%;border:2px solid var(--violet);background:rgba(124,58,237,0);z-index:9999;pointer-events:none;opacity:0;scale:1;transition:scale .25s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,opacity .3s}
+.cursor-ring{position:fixed;top:-19px;left:-19px;width:38px;height:38px;z-index:9999;pointer-events:none;opacity:0;scale:1;transition:scale .25s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+/* Inner holds the visible circle. Its own scale (the click pulse) multiplies
+   with the ring's hover scale, so the pulse looks right in every state. */
+.cursor-ring-inner{width:100%;height:100%;border-radius:50%;border:2px solid var(--violet);background:rgba(124,58,237,0);transition:background .25s,border-color .25s}
 .cursor-dot.is-active,.cursor-ring.is-active{opacity:1}
-.cursor-ring.is-hover{scale:1.7;background:rgba(124,58,237,.14);border-color:var(--violet-mid)}
-.cursor-ring.is-text{scale:.45;background:rgba(124,58,237,.35)}
-.cursor-ring.is-down{scale:.75;background:rgba(124,58,237,.28)}
+.cursor-ring.is-hover{scale:1.7}
+.cursor-ring.is-hover .cursor-ring-inner{background:rgba(124,58,237,.14);border-color:var(--violet-mid)}
+.cursor-ring.is-text{scale:.45}
+.cursor-ring.is-text .cursor-ring-inner{background:rgba(124,58,237,.35)}
+.cursor-ring.is-click .cursor-ring-inner{animation:cursorClick .5s ease-out}
+@keyframes cursorClick{0%{scale:1}38%{scale:1.9}100%{scale:1}}
 
 /* Respect reduced-motion preferences */
 @media(prefers-reduced-motion:reduce){
