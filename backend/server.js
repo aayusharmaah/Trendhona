@@ -8,8 +8,20 @@ const app = express();
 
 applyMiddleware(app);
 
-// Serve the frontend as static files
-app.use(express.static(path.join(__dirname, '../frontend')));
+// Serve the frontend as static files.
+// no-cache forces the browser to revalidate JS/CSS/HTML on every load (a cheap
+// conditional GET → 304 when unchanged), so a redeploy is picked up immediately
+// instead of the browser reusing a stale cached ES module. Hashed asset files
+// (images) can still be cached long-term.
+app.use(express.static(path.join(__dirname, '../frontend'), {
+  setHeaders(res, filePath) {
+    if (/\.(html|js|css)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'no-cache');
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+    }
+  },
+}));
 
 // API routes under /api
 app.use('/api', routes);
